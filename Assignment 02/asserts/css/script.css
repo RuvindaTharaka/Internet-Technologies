@@ -1,0 +1,89 @@
+
+    /*header style starts*/
+        header{
+            position:relative;
+            box-shadow: 3px 3px 3px 1px rgb(78 69 69);
+        }
+        header>img{
+            margin-top:1vh;
+            margin-left:1vh;
+            width:10vw;
+        }
+        header>ul{
+           position: absolute;
+           margin: auto;
+           right: 0;
+           top: 0.5vh;
+        }
+        header>ul>li{
+            display: inline;
+            list-style: none;
+            font-family: cursive;
+            font-size: 2vw;
+            font-weight: bold;
+            padding: 1vw;
+            color:white;
+        }
+
+    /*header style ends*/
+
+    /*main style starts*/
+        main{
+            position:relative;
+        }
+        main>nav{
+            position:absolute;
+            top:0;
+            bottom:0;
+            background-color:blue;
+            width:25vw;
+        }
+        main>nav>ul>li{
+            list-style: none;
+            font-family: cursive;
+            font-size: 2vw;
+            font-weight: bold;
+            padding: 1vw;
+            color:white;
+        }
+        main>nav>ul>li>a{
+            color:white;
+            text-decoration:none;
+        }
+         main>nav>ul>li>a>hover{
+            color:blue;
+         }
+
+
+         main>section{
+            margin-left:25vw;
+            padding:10px;
+         }
+         main>section>section{
+            margin-left:7vw;
+            width:61vw;
+         }
+         main>section>section>img{
+            width:18vw;
+         }
+
+    /*main style ends*/
+
+    /*footer style starts*/
+
+    footer{
+        background-color:grey;
+    }
+    footer>div{
+       height:8vh;
+       margin-left:40vw;
+       font-size:2vw;
+       padding-top:1vh;
+    }
+    /*footer style ends*/
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/RuvindaTharaka/Internet-Technologies.git
+git push -u origin main
