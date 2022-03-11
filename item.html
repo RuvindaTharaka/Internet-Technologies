@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item</title>
+    <link rel="stylesheet" href="asserts/css/normalize/normalize.css">
+    <link rel="stylesheet" href="asserts/css/fonts/css/all.css">
+    <link rel="stylesheet" href="asserts/css/styles/styles-home.css">
+    <link rel="stylesheet" href="asserts/css/styles/style-customer-item.css">
+</head>
+<body>
+<header id="header-content">
+    <div>
+        <h1 class="logo"><i class="fas fa-utensils"></i>Food</h1>
+    </div>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html" id="link-Home">Home</a></li>
+            <li><a href="customer.html" id="link-Customer">Customer</a></li>
+            <li><a href="item.html" id="link-Item">Item</a></li>
+            <li><a href="order.html" id="link-Order">Order</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="item" id="item-content">
+    <div class="search-container">
+        <h1>Search Here..</h1>
+        <input type="text" placeholder="Customer ID (Ex:I00-001)" id="txtSearchItemCode">
+        <button id="btn-search-item" class="btn-search">Search</button>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <h1>Item Code</h1>
+            <input type="text" placeholder="Item Code" id="txtItemCode">
+            <div id="lblItemCode">ABC</div>
+        </div>
+
+        <div>
+            <h1>Item Name</h1>
+            <input type="text" placeholder="Item Name" id="txtItemName">
+            <div id="lblItemName" >ABC</div>
+        </div>
+
+        <div>
+            <h1>Quantity</h1>
+            <input type="text" placeholder="Quantity" id="txtQuantity">
+            <div id="lblQuantity">ABC</div>
+        </div>
+
+        <div>
+            <h1>Price(LKR)</h1>
+            <input type="text" placeholder="Price" id="txtPrice">
+            <div id="lblPrice">ABC</div>
+        </div>
+
+        <div class="btn-container">
+            <button id="btn-delete-item" class="btn-delete">Delete</button>
+            <button id="btn-save-item" class="btn-save">Save & Update</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody id="itemTable">
+
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+<script src="db/DB.js"></script>
+<script>
+
+    $('#txtItemCode,#txtItemName,#txtQuantity,#txtPrice').keyup(function(){
+        focusValid();
+    });
+
+    $("#btn-save-item").click(function(){
+         saveItem();
+         loadAllItems();
+    });
+
+    $("#btn-search-item").click(function () {
+        var searchID = $("#txtSearchItemCode").val();
+
+        var response = searchItem(searchID);
+        if (response) {
+            $("#txtItemCode").val(response.itemCode);
+            $("#txtItemName").val(response.name);
+            $("#txtQuantity").val(response.qty);
+            $("#txtPrice").val(response.price);
+
+        }else{
+            clearAll();
+            alert("No Such a Item");
+        }
+    });
+
+    $("#btn-delete-item").click(function () {
+        deleteItem();
+        loadAllItems();
+    });
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function deleteItem(){
+        var deleteId=$("#txtItemCode").val();
+
+        var resp = searchItem(deleteId);
+        if(resp){
+            itemDB.pop(resp);
+        }else{
+            alert("Deleted!");
+            loadAllItems();
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+     function searchItem(itemCode) {
+        for (let i = 0; i < itemDB.length; i++) {
+            if (itemDB[i].itemCode == itemCode) {
+                return itemDB[i];
+            }
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function searchItemIndex(itemCode){
+         for (let i = 0; i < itemDB.length; i++) {
+            if (itemDB[i].itemCode == itemCode) {
+               return i;
+            }
+        }
+    }
+
+    function saveItem(){
+        var searchID = $("#txtItemCode").val();
+        var response = searchItemIndex(searchID);
+        if(response == undefined){
+          let itemCode = $("#txtItemCode").val();
+          let itemName = $("#txtItemName").val();
+          let qty = $("#txtQuantity").val();
+          let price = $("#txtPrice").val();
+
+          var itemObject = {
+                itemCode:itemCode,
+                name:itemName,
+                qty:qty ,
+                price:price
+           };
+          itemDB.push(itemObject);
+        }else{
+            let itemCode = $("#txtItemCode").val();
+            let itemName = $("#txtItemName").val();
+            let qty = $("#txtQuantity").val();
+            let price = $("#txtPrice").val();
+
+             var itemObject = {
+                itemCode:itemCode,
+                name:itemName,
+                qty:qty ,
+                price:price
+             };
+            itemDB[response]=itemObject;
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function loadAllItems() {
+        $("#itemTable").empty();
+        for (var i of itemDB) {
+            let row = `<tr><td>${i.itemCode}</td><td>${i.name}</td><td>${i.qty}</td><td>${i.price}</td></tr>`;
+            $("#itemTable").append(row);
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    const itemCodeRegEx = /^(I00-)[0-9]{3}$/;
+    const itemNameRegEx = /^[A-z]{5,20}$/;
+    const itemQtyRegEx = /^[0-9]{1,2}$/;
+    const itemPriceRegEx = /^[0-9]{1,3}(.00)$/;
+
+    function focusValid(){
+        if(event.key == "Enter"){
+
+            if(itemCodeRegEx.test($("#txtItemCode").val())){
+                $("#txtItemCode").css('border', '2px solid green');
+                $("#lblItemCode").text("");
+                $("#txtItemName").focus();
+
+                    if(itemNameRegEx.test($("#txtItemName").val())){
+                        $("#txtItemName").css('border', '2px solid green');
+                        $("#lblItemName").text("");
+                        $("#txtQuantity").focus();
+
+                            if(itemQtyRegEx.test($("#txtQuantity").val())){
+                                $("#txtQuantity").css('border', '2px solid green');
+                                $("#lblQuantity").text("");
+                                $("#txtPrice").focus();
+
+                                     if(itemPriceRegEx.test($("#txtPrice").val())){
+                                        $("#txtPrice").css('border', '2px solid green');
+                                        $("#lblPrice").text("");
+
+
+                                     }else{
+                                         $("#txtPrice").css('border', '2px solid red');
+                                        $("#lblPrice").text("Wrong Format! Ex: 500.00");
+                                        return;
+                                     }
+                            }else{
+
+                                $("#txtQuantity").css('border', '2px solid red');
+                                $("#lblQuantity").text("Wrong Format! Ex: 05");
+                                return;
+                            }
+                    }else{
+                        $("#txtItemName").css('border', '2px solid red');
+                        $("#lblItemName").text("Wrong Format! Ex: Pizza");
+                        return;
+                    }
+            }else{
+                $("#txtItemCode").css('border', '2px solid red');
+                $("#lblItemCode").text("Wrong Format! Ex: I00-001");
+                return;
+            }
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+</script>
+</body>
+</html>

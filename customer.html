@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+    <link rel="stylesheet" href="asserts/css/normalize/normalize.css">
+    <link rel="stylesheet" href="asserts/css/fonts/css/all.css">
+    <link rel="stylesheet" href="asserts/css/styles/styles-home.css">
+    <link rel="stylesheet" href="asserts/css/styles/style-customer-item.css">
+</head>
+<body>
+<header id="header-content">
+    <div>
+        <h1 class="logo"><i class="fas fa-utensils"></i>Food</h1>
+    </div>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html" id="link-Home">Home</a></li>
+            <li><a href="customer.html" id="link-Customer">Customer</a></li>
+            <li><a href="item.html" id="link-Item">Item</a></li>
+            <li><a href="order.html" id="link-Order">Order</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="customer" id="customer-content">
+    <div class="search-container">
+        <h1>Search Here..</h1>
+        <input type="text" placeholder="Customer ID (Ex:C00-001)" id="txtSearchCusID">
+        <button id="btn-search-customer" class="btn-search">Search</button>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <h1>Customer ID</h1>
+            <input type="text" placeholder="Customer ID" id="txtCusID">
+            <div id="lblCusID"></div>
+        </div>
+
+        <div>
+            <h1>Customer Name</h1>
+            <input type="text" placeholder="Customer Name" id="txtCusName">
+            <div id="lblCusName" ></div>
+        </div>
+
+        <div>
+            <h1>Customer Address</h1>
+            <input type="text" placeholder="Customer Address" id="txtCusAddress">
+            <div id="lblCusAddress"></div>
+        </div>
+
+        <div>
+            <h1>Customer Contact</h1>
+            <input type="text" placeholder="Customer Contact" id="txtCusContact">
+            <div id="lblCusContact"></div>
+        </div>
+
+        <div class="btn-container">
+            <button id="btn-delete-customer" class="btn-delete">Delete</button>
+            <button id="btn-save-customer" class="btn-save">Save & Update</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th id="t">Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Contact</th>
+            </tr>
+            </thead>
+            <tbody id="cusTable">
+
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+<script src="db/DB.js"></script>
+<script>
+
+    $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusContact').keyup(function(){
+        focusValid();
+    });
+
+    $("#btn-save-customer").click(function(){
+         saveCustomer();
+         loadAllCustomers();
+    });
+
+    $("#btn-search-customer").click(function () {
+        var searchID = $("#txtSearchCusID").val();
+
+        var response = searchCustomer(searchID);
+        if (response) {
+            $("#txtCusID").val(response.id);
+            $("#txtCusName").val(response.name);
+            $("#txtCusAddress").val(response.address);
+            $("#txtCusContact").val(response.contact);
+
+        }else{
+            clearAll();
+            alert("No Such a Customer");
+        }
+    });
+
+    $("#btn-delete-customer").click(function () {
+        deleteCustomer();
+        loadAllCustomers();
+    });
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function deleteCustomer(){
+        var deleteId=$("#txtCusID").val();
+
+        var resp = searchCustomer(deleteId);
+        if(resp){
+            customerDB.pop(resp);
+        }else{
+            alert("Deleted!");
+            loadAllCustomers();
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+     function searchCustomer(id) {
+        for (let i = 0; i < customerDB.length; i++) {
+            if (customerDB[i].id == id) {
+                return customerDB[i];
+            }
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function searchCustomerIndex(id){
+         for (let i = 0; i < customerDB.length; i++) {
+            if (customerDB[i].id == id) {
+               return i;
+            }
+        }
+    }
+
+    function saveCustomer(){
+        var searchID = $("#txtCusID").val();
+        var response = searchCustomerIndex(searchID);
+        if(response == undefined){
+          let cusId = $("#txtCusID").val();
+          let cusName = $("#txtCusName").val();
+          let cusAddress = $("#txtCusAddress").val();
+          let cusContact = $("#txtCusContact").val();
+
+          var customerObject = {
+                id:cusId,
+                name:cusName,
+                address:cusAddress,
+                contact:cusContact
+           };
+          customerDB.push(customerObject);
+        }else{
+            let cusId = $("#txtCusID").val();
+            let cusName = $("#txtCusName").val();
+            let cusAddress = $("#txtCusAddress").val();
+            let cusContact = $("#txtCusContact").val();
+
+            var customerObject = {
+                id:cusId,
+                name:cusName,
+                address:cusAddress,
+                contact:cusContact
+            };
+            customerDB[response]=customerObject;
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    function loadAllCustomers() {
+        $("#cusTable").empty();
+        for (var i of customerDB) {
+            let row = `<tr><td>${i.id}</td><td>${i.name}</td><td>${i.address}</td><td>${i.contact}</td></tr>`;
+            $("#cusTable").append(row);
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    const cusIDRegEx = /^(C00-)[0-9]{3}$/;
+    const cusNameRegEx = /^[A-z ]{5,20}$/;
+    const cusAddressRegEx = /^[A-z]{4,10}$/;
+    const cusContactRegEx = /^[0-9]{5}$/;
+
+    function focusValid(){
+        if(event.key == "Enter"){
+
+            if(cusIDRegEx.test($("#txtCusID").val())){
+                $("#txtCusID").css('border', '2px solid green');
+                $("#lblCusID").text("");
+                $("#txtCusName").focus();
+
+                    if(cusNameRegEx.test($("#txtCusName").val())){
+                        $("#txtCusName").css('border', '2px solid green');
+                        $("#lblCusName").text("");
+                        $("#txtCusAddress").focus();
+
+                            if(cusAddressRegEx.test($("#txtCusAddress").val())){
+                                $("#txtCusAddress").css('border', '2px solid green');
+                                $("#lblCusAddress").text("");
+                                $("#txtCusContact").focus();
+
+                                     if(cusContactRegEx.test($("#txtCusContact").val())){
+                                        $("#txtCusContact").css('border', '2px solid green');
+                                        $("#lblCusContact").text("");
+
+
+                                     }else{
+                                         $("#txtCusContact").css('border', '2px solid red');
+                                        $("#lblCusContact").text("Wrong Format! Ex: 12345");
+                                        return;
+                                     }
+                            }else{
+
+                                $("#txtCusAddress").css('border', '2px solid red');
+                                $("#lblCusAddress").text("Wrong Format! Ex: Colombo");
+                                return;
+                            }
+                    }else{
+                        $("#txtCusName").css('border', '2px solid red');
+                        $("#lblCusName").text("Wrong Format! Ex: Ruvinda Tharaka");
+                        return;
+                    }
+            }else{
+                $("#txtCusID").css('border', '2px solid red');
+                $("#lblCusID").text("Wrong Format! Ex: C00-001");
+                return;
+            }
+        }
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+
+</script>
+</body>
+</html>

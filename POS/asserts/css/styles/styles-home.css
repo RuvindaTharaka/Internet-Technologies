@@ -1,0 +1,201 @@
+/*----------------------------------------------General CSS Editing---------------------------------------------------*/
+*{
+  font-family:fantasy;
+  margin:0; padding:0;
+  box-sizing:border-box;
+  outline:none; border:none;
+  text-decoration:none;
+  text-transform:capitalize;
+  transaction:all .2s linear ;
+}
+
+html{
+   font-size:62.5%;
+   overflow-x:hidden;
+   scroll-behavior:smooth;
+   scroll-padding-top:6rem;
+}
+
+body{
+   background:#f7f7f7;
+
+}
+
+section{
+    padding-top: 14rem;
+
+}
+
+/*----------------------------------------------General CSS Editing---------------------------------------------------*/
+/*----------------------------------------------Header CSS Editing----------------------------------------------------*/
+header{
+   position:fixed;
+   top:0; left:0; right:0;
+   z-index:1000;
+   display:flex;
+   align-item:center;
+   justify-content:space-between;
+   background:#fff;
+   padding:1rem 9%;
+   box-shadow:0 .5rem 1rem rgba(0,0,0,.1)
+}
+
+header .logo{
+   font-size:3rem;
+   font-weight:bolder;
+   color:#ed2929;
+   display:flex;
+   margin-top:0;
+   margin-right:15rem;
+   padding-right:5rem;
+}
+
+header .logo i{
+    padding-right:.5rem;
+    color:#ff0000;
+}
+
+header .nav-bar{
+    font-size:2.5rem;
+    margin: 0rem 2rem 0rem 0rem;
+    color:#666;
+    display:flex;
+}
+
+header .nav-bar ul{
+    display:flex;
+    list-style:none;
+}
+
+header .nav-bar ul li{
+    padding-left:2rem;
+
+}
+
+header .nav-bar ul li a:hover{
+    color:--red:#ff3838;
+
+}
+
+#theme{
+    display:block;
+    font-size:2rem;
+    padding:1rem;
+    padding-right:10rem;
+    font-weight: bold;
+    font-family:'Font Awesome 5 Free';
+    border:1px solid #1cd01c;
+    background-color:#1cd01c;
+    color:white;
+    border-radius:1rem;
+}
+
+/*----------------------------------------------Header CSS Editing----------------------------------------------------*/
+
+
+/*----------------------------------------------Home CSS Editing------------------------------------------------------*/
+.home{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.5rem;
+    min-height:50vh;
+    align-items:center;
+    background-size:cover;
+    background-position:center;
+}
+
+.home .intro{
+    flex: 1 1 60rem;
+    padding-left:2rem;
+
+}
+
+.home .customer-count{
+    flex: 1 1 20rem;
+
+}
+
+.home .order-count{
+    flex: 1 1 20rem;
+
+}
+/* ---------------- */
+.home .intro h2{
+    font-size:5rem;
+    font-family:'FontAwesome';
+    color:#666;
+}
+
+.home .intro p{
+    font-size:1.7rem;
+    color :#666;
+    padding:1rem  0;
+}
+/* ---------------- */
+.home .customer-count>div{
+    border:2px solid black;
+    border-radius:1rem;
+    margin-left:1rem;
+}
+
+.home .customer-count>div h1{
+    text-align:center;
+    font-size:2.5rem;
+}
+
+.home .customer-count>div>div{
+    text-align:center;
+    font-size:5rem;
+    padding:5rem;
+}
+/* ---------------- */
+.home .order-count>div{
+    border:2px solid black;
+    border-radius:1rem;
+    margin-right:1rem;
+}
+
+.home .order-count>div h1{
+    text-align:center;
+    font-size:2.5rem;
+}
+
+.home .order-count>div>div{
+    text-align:center;
+    font-size:5rem;
+    padding:5rem;
+}
+/* ---------------- */
+
+
+/*----------------------------------------------Home CSS Editing------------------------------------------------------*/
+@media(max-width:991px){
+    html{
+        font-size:45%;
+    }
+    header{
+        padding:2rem;
+    }
+    .item-select input{
+        width:60rem;
+        font-size:2.2rem;
+    }
+    .invoice-details input{
+        width:60rem;
+        font-size:2.2rem;
+    }
+    .order h1{
+       font-size:2.5rem;
+    }
+    .order h2{
+       font-size:2rem;
+    }
+    #addItem{
+       font-size:2.8rem;
+       margin-left:45rem;
+    }
+    #confirm{
+        margin-left:45rem;
+    }
+
+}

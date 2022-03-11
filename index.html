@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="asserts/css/normalize/normalize.css">
+    <link rel="stylesheet" href="asserts/css/fonts/css/all.css">
+    <link rel="stylesheet" href="asserts/css/styles/styles-home.css">
+<style>
+*{
+  font-family:fantasy;
+  margin:0; padding:0;
+  box-sizing:border-box;
+  outline:none; border:none;
+  text-decoration:none;
+  text-transform:capitalize;
+  transaction:all .2s linear ;
+}
+html{
+   font-size:62.5%;
+   overflow-x:hidden;
+   scroll-behavior:smooth;
+   scroll-padding-top:6rem;
+}
+body{
+   background:#dddfd2;
+}
+.home{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.5rem;
+    min-height:80vh;
+    align-content:top;
+    background-size:cover;
+    background-position:top;
+    margin:2rem;
+    margin-top:10rem;
+    padding:2rem;
+}
+.content{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.5rem;
+    min-height:80vh;
+    align-content:top;
+    background-size:cover;
+    background-position:top;
+    margin:2rem;
+    margin-top:2rem;
+    //background-color:blue;
+    width:100vw;
+}
+.content .offers{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    flex: 1 1 60rem;
+    //background-color:green;
+}
+.content .flex-container{
+    display:flex;
+    flex-wrap:wrap;
+    flex: 1 1 60rem;
+    //background-color:yellow;
+}
+.content .offers .todaySpecial{
+    flex: 1 1 10rem;
+}
+.content .offers .promotions{
+    flex: 1 1 10rem;
+}
+.content .offers .todaySpecial{
+    background-color:white;
+    width:30rem;
+    margin:2rem;
+    padding:1rem;
+}
+.content .offers .todaySpecial h1{
+    font-size:2.5rem;
+    background-color:chocolate;
+    padding:1rem;
+    border-radius:1rem;
+}
+.content .offers .todaySpecial img:nth-child(3){
+    width:26rem;
+    height:16rem;
+    margin:1rem;
+    border-radius:1rem;
+}
+.content .offers .todaySpecial img:nth-child(4){
+    width:26rem;
+    height:16rem;
+    margin:1rem;
+    border-radius:1rem;
+}
+.content .offers .todaySpecial img:nth-child(5){
+    width:10rem;
+    height:10rem;
+    margin:1rem;
+    border-radius:1rem;
+}
+.content .offers .todaySpecial img:nth-child(6){
+    width:10rem;
+    height:10rem;
+    margin:1rem;
+    margin-left:4rem;
+    border-radius:1rem;
+}
+.content .offers .todaySpecial aside{
+    font-size:3rem;
+    background-color:red;
+    padding:1rem;
+    margin-left:4rem;
+    margin-right:2rem;
+    border-radius:1rem 5rem 1rem 5rem;
+    padding-left:5rem;
+    color:white;
+}
+.content .promotions {
+    background-color:white;
+    width:30rem;
+    margin:2rem;
+    padding:1rem;
+}
+.promotions .topic{
+    font-size:2.5rem;
+    background-color:#11e518;
+    padding:1rem;
+    border-radius:1rem;
+    margin:1rem;
+}
+.promotions img{
+    width:25rem;
+    height:12rem;
+}
+.promotions aside{
+    font-size:2rem;
+    padding:.5rem;
+    margin-right:5.5rem;
+    margin-left:2rem;
+    background-color:red;
+}
+.flex-container .allCustomers{
+    background-color: grey;
+    width: 30rem;
+    margin:1rem;
+    padding:1rem;
+    flex:1 1 25rem;
+    border: 1px solid #2c77ff;
+    border-radius:1rem;
+}
+.flex-container .allItems{
+    background-color: grey;
+    width: 30rem;
+    margin:1rem;
+    padding:1rem;
+    flex:1 1 25rem;
+    border: 1px solid #2c77ff;
+    border-radius:1rem;
+}
+.flex-container .allOrders{
+    background-color: grey;
+    width: 30rem;
+    margin:1rem;
+    padding:1rem;
+    flex:1 1 25rem;
+    border: 1px solid #2c77ff;
+    border-radius:1rem;
+}
+.flex-container .allCustomers i{
+    font-size:5rem;
+    margin-left:10rem;
+    margin-right:10rem;
+}
+.flex-container .allCustomers h1{
+    font-size:4rem;
+    font-family: system-ui;
+    padding-left: 2rem;
+    margin-left:2.5rem;
+    margin-right:2.5rem;
+}
+.flex-container .allCustomers div{
+    font-size:5rem;
+    margin-left:10rem;
+    margin-right:10rem;
+}
+.flex-container .allItems i{
+    font-size:5rem;
+    margin-left:10rem;
+    margin-right:10rem;
+}
+.flex-container .allItems h1{
+    font-size:4rem;
+    font-family: system-ui;
+    padding-left: 2rem;
+    margin-left:6rem;
+    margin-right:6rem;
+}
+.flex-container .allItems div{
+    font-size:5rem;
+    margin-left:10rem;
+    margin-right:10rem;
+}
+.flex-container .allOrders i{
+    font-size:5rem;
+    margin-left:25rem;
+    margin-right:25rem;
+}
+.flex-container .allOrders h1{
+    font-size:4rem;
+    font-family: system-ui;
+    padding-left: 2rem;
+    margin-left:20rem;
+    margin-right:20rem;
+}
+.flex-container .allOrders div{
+    font-size:5rem;
+    margin-left:25rem;
+    margin-right:25rem;
+}
+
+</style>
+</head>
+<body>
+<header id="header-content">
+    <div>
+        <h1 class="logo"><i class="fas fa-utensils"></i>Food</h1>
+    </div>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html" id="link-Home">Home</a></li>
+            <li><a href="customer.html" id="link-Customer">Customer</a></li>
+            <li><a href="item.html" id="link-Item">Item</a></li>
+            <li><a href="order.html" id="link-Order">Order</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="home" id="home-content">
+    <div class="content">
+        <div class="offers">
+            <div class="todaySpecial">
+                <h1>Today's Special</h1>
+                <aside>RS.2500/=</aside>
+                <img src="asserts/images/pizza01.PNG" alt="">
+                <img src="asserts/images/pizza02.PNG" alt="">
+                <img src="asserts/images/pizza03.PNG" alt="">
+                <img src="asserts/images/pizza04.PNG" alt="">
+
+            </div>
+            <div class="promotions">
+                <div class="topic">Offers</div>
+                <div>
+                    <img src="asserts/images/pizza01.PNG" alt="">
+                    <aside>RS.999/=</aside>
+                </div>
+                <div>
+                    <img src="asserts/images/pizza02.PNG" alt="">
+                    <aside>RS.999/=</aside>
+                </div>
+                <div>
+                    <img src="asserts/images/pizza03.PNG" alt="">
+                    <aside>RS.1499/=</aside>
+                </div>
+                <div>
+                    <img src="asserts/images/pizza04.PNG" alt="">
+                    <aside>RS.1299/=</aside>
+                </div>
+
+            </div>
+        </div>
+        <div class="flex-container">
+            <div class="allCustomers">
+                <aside><i class="fas fa-users"></i></aside>
+                <h1>Customers</h1>
+                <div>50</div>
+            </div>
+            <div class="allItems">
+                <aside><i class="fas fa-users"></i></aside>
+                <h1>Items</h1>
+                <div>50</div>
+            </div>
+            <div class="allOrders">
+                <i class="fas fa-shopping-cart"></i>
+                <h1>Orders</h1>
+                <div>50</div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+</body>
+</html>

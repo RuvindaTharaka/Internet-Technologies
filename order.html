@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="asserts/css/normalize/normalize.css">
+    <link rel="stylesheet" href="asserts/css/fonts/css/all.css">
+    <link rel="stylesheet" href="asserts/css/styles/styles-home.css">
+    <link rel="stylesheet" href="asserts/css/styles/style-order.css">
+
+</head>
+<body>
+<header id="header-content">
+    <div>
+        <h1 class="logo"><i class="fas fa-utensils"></i>Food</h1>
+    </div>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html" id="link-Home">Home</a></li>
+            <li><a href="customer.html" id="link-Customer">Customer</a></li>
+            <li><a href="item.html" id="link-Item">Item</a></li>
+            <li><a href="order.html" id="link-Order">Order</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="order" id="order-content">
+    <div class="invoice-details">
+        <h1>Invoice Details</h1>
+        <div>
+            <h2>Order ID</h2>
+            <div id="cmbOrderID"></div>
+        </div>
+
+        <div>
+            <h2>Date</h2>
+            <div id="txtDate"></div>
+        </div>
+
+        <div>
+            <h2>Customer ID</h2>
+            <div id="cusIdDiv">
+                <select id="selectedCusID">
+
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <h2>Customer Name</h2>
+            <div id="txtCusName">Customer Name</div>
+        </div>
+    </div>
+
+    <div class="item-select">
+        <h1>Item Select</h1>
+
+        <div>
+            <h2>Item Code</h2>
+            <div id="itemCodeDiv">
+                <select id="selectedItemCode">
+
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <h2>Item Name</h2>
+            <div id="txtItemName">Item Name</div>
+        </div>
+
+        <div class="qty">
+            <div>
+                <h2>Quantity</h2>
+                <input type="text" placeholder="Quantity" id="txtQty">
+            </div>
+            <button id="addItem">Add Item</button>
+        </div>
+
+    </div>
+    <div class="payment-details">
+        <h1>Payement Details</h1>
+        <div>
+            <h2>Total(LKR)</h2>
+            <div id="total">0.00</div>
+        </div>
+        <div>
+            <h2>Cash(LKR)</h2>
+            <input type="text" placeholder="0.0" id="txtCash">
+
+        </div>
+        <div>
+            <h2>Balance(LKR)</h2>
+            <div id="balance">0.0</div>
+        </div>
+        <aside></aside>
+        <button id="confirm">Confirm</button>
+    </div>
+    <div class="table-details">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price(LKR)</th>
+            </tr>
+            </thead>
+            <tbody id="orderTable">
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+<script src="db/DB.js"></script>
+<script>
+ let today =new Date();
+ let dd=today.getDate();
+ let mm=today.getMonth()+1;
+ let yy=today.getFullYear();
+ let d=`${dd}-${mm}-${yy}`;
+
+ const txtQtyRegEx = /^[0-9]{1,3}$/;
+ const txtCashRegEx = /^[0-9]{3}$/;
+
+loadOrderID();
+setDate();
+loadCusID();
+loadItemCode();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                /* LOAD ORDER ID*/
+
+ function loadOrderID(){
+    $("#cmbOrderID").text("OD00-00"+orderDB.length);
+ }
+                                /* LOAD DATE*/
+
+ function setDate(){
+    $("#txtDate").text(d);
+ }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                /* LOAD CUSTOMER ID*/
+
+function loadCusID(){
+   for (let i = 0; i < customerDB.length; i++){
+        let cusID =customerDB[i].id;
+        let row =`<option value="${cusID}">${cusID}</option>`;
+        $("#selectedCusID").append(row);
+   }
+}
+                                /* LOAD CUSTOMER NAME*/
+
+$("#selectedCusID").click(function(){
+        var id=$("#selectedCusID").val();
+        searchCustomerName(id);
+});
+                                /* SEARCH CUSTOMER NAME*/
+
+function  searchCustomerName(id){
+     for (let i = 0; i < customerDB.length; i++) {
+         if (customerDB[i].id == id) {
+            $("#txtCusName").text(customerDB[i].name);
+        }
+     }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                /* LOAD ITEM CODE*/
+
+function loadItemCode(){
+   for (let i = 0; i < itemDB.length; i++){
+        let itemCode =itemDB[i].itemCode;
+        let row =`<option value="${itemCode}">${itemCode}</option>`;
+        $("#selectedItemCode").append(row);
+   }
+}
+                                /* LOAD ITEM NAME*/
+
+$("#selectedItemCode").click(function(){
+        var itemCode=$("#selectedItemCode").val();
+        searchItemName(itemCode);
+});
+                                /*SEARCH ITEM NAME*/
+
+function  searchItemName(itemCode){
+     for (let i = 0; i < itemDB.length; i++) {
+         if (itemDB[i].itemCode == itemCode) {
+            $("#txtItemName").text(itemDB[i].name);
+        }
+     }
+}
+///////////////////////////////////////////////////////////
+
+
+$("#addItem").click(function(){
+let itemCode=$("#selectedItemCode").val();
+let itemName;
+let unitPrice;
+     for (let i = 0; i < itemDB.length; i++) {
+         if (itemDB[i].itemCode == itemCode) {
+           unitPrice=itemDB[i].price;
+           itemName=itemDB[i].name;
+        }
+     }
+let qty=$("#txtQty").val();
+let totPrice=unitPrice*qty;
+let row= ` <tr><td>${itemCode}</td><td>${itemName}</td><td>${qty}</td><td>${totPrice}</td></tr>`;
+$("#orderTable").append(row);
+
+calcTotal(totPrice);
+
+});
+
+let tot=0.0;
+function calcTotal(totPrice){
+    let total=tot+totPrice;
+    $("#total").text(total);
+    tot=total;
+}
+
+$("#confirm").click(function(){
+    $("#txtCash").focus();
+    if(txtCashRegEx.test($("#txtCash").val())){
+        calcBalance();
+    }
+});
+
+function calcBalance(){
+    var total=$("#total").text();
+    console.log("total"+total);
+    let cash=$("#txtCash").val();
+    console.log("cash"+cash);
+    if (total<cash){
+        let bal =(cash-total);
+        console.log("bal"+bal);
+        $("#balance").text(bal);
+    }else{
+        alert("Not Enough Cash!");
+        $("#txtCash").focus();
+    }
+}
+</script>
+</body>
+</html>

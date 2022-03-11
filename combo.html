@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Combo</title>
+    <style></style>
+</head>
+<body>
+
+        <div>
+          <h2>Customer ID</h2>
+            <div id="cusIdDiv">
+                <select id="selectedCusID">
+
+                </select>
+            </div>
+        </div>
+        <button id="btn">Show</button>
+      <!--  <center>
+    <h1>JS</h1>
+
+               <ul id="cusList"></ul>
+        </form>
+        <button id="btn">Show</button>
+        <div></div>
+    </center> -->
+</body>
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+
+<script>
+var customerDB= new Array();
+var customer1  ={
+    id:"C00-001",
+    name:"Amal",
+    address:"Galle",
+    contact:"031"
+};
+customerDB.push(customer1);
+var customer2  ={
+    id:"C00-002",
+    name:"Kamal",
+    address:"Colombo",
+    contact:"011"
+};
+customerDB.push(customer2);
+var customer3  ={
+    id:"C00-003",
+    name:"Nimal",
+    address:"Panadura",
+    contact:"032"
+};
+customerDB.push(customer3);
+
+$("#btn").click(function(){
+     console.log($("#selectedCusID").val());
+});
+loadCusID();
+function loadCusID(){
+   for (let i = 0; i < customerDB.length; i++){
+        let cusID =customerDB[i].id;
+        let row =`<option value="${cusID}">${cusID}</option>`;
+        $("#selectedCusID").append(row);
+   }
+}
+$("#selectedCusID").off();
+$("#selectedCusID").click(function(){
+    var id=$("#selectedCusID").val();
+    searchCustomerName(id);
+});
+
+function  searchCustomerName(id){
+     for (let i = 0; i < customerDB.length; i++) {
+         if (customerDB[i].id == id) {
+            console.log(customerDB[i].name);
+        }
+     }
+}
+</script>
+</html>
+
+<!--
+<div>
+    <h2>Customer ID</h2>
+    <form name="formID">
+        <select id="selectedCusID">
+            &lt;!&ndash;                    <option value="A">A</option>&ndash;&gt;
+            &lt;!&ndash;                    <option value="B">B</option>&ndash;&gt;
+            &lt;!&ndash;                    <option value="C">C</option>&ndash;&gt;
+        </select>
+    </form>
+</div>
+<button id="btn">Show</button>
+$("#btn").click(function(){
+console.log($("#selectedCusID").val());
+});
+loadCusID();
+function loadCusID(){
+for (let i = 0; i < customerDB.length; i++){
+let cusID =customerDB[i].id;
+let row =`<option value="${cusID}">${cusID}</option>`;
+$("#selectedCusID").append(row);
+}-->
