@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="asserts/css/normalize/normalize.css">
+    <link rel="stylesheet" href="asserts/css/fonts/css/all.css">
+    <link rel="stylesheet" href="asserts/css/styles/styles-home.css">
+    <link rel="stylesheet" href="asserts/css/styles/style-order.css">
+
+</head>
+<body>
+<header id="header-content">
+    <div>
+        <h1 class="logo"><i class="fas fa-utensils"></i>Food</h1>
+    </div>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html" id="link-Home">Home</a></li>
+            <li><a href="customer.html" id="link-Customer">Customer</a></li>
+            <li><a href="item.html" id="link-Item">Item</a></li>
+            <li><a href="order.html" id="link-Order">Order</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="order" id="order-content">
+    <div class="invoice-details">
+        <h1>Invoice Details</h1>
+        <div>
+            <h2>Order ID</h2>
+            <input type="text" placeholder="Order ID">
+        </div>
+
+        <div>
+            <h2>Date</h2>
+            <input type="text" placeholder="Date">
+        </div>
+
+        <div>
+            <h2>Customer ID</h2>
+            <input type="text" placeholder="Customer ID">
+        </div>
+
+        <div>
+            <h2>Customer Name</h2>
+            <input type="text" placeholder="Customer Name">
+        </div>
+    </div>
+
+    <div class="item-select">
+        <h1>Item Select</h1>
+        <div>
+            <h2>Item Name</h2>
+            <input type="text" placeholder="Item Name">
+        </div>
+
+        <div>
+            <h2>Item Code</h2>
+            <input type="text" placeholder="Item Name">
+        </div>
+
+        <div class="qty">
+            <div>
+                <h2>Quantity</h2>
+                <input type="text" placeholder="Quantity">
+            </div>
+            <button id="addItem">Add Item</button>
+        </div>
+
+    </div>
+    <div class="payment-details">
+        <h1>Payement Details</h1>
+        <div>
+            <h2>Total(LKR)</h2>
+            <div id="total"></div>
+        </div>
+        <div>
+            <h2>Cash(LKR)</h2>
+            <div id="cash"></div>
+        </div>
+        <div>
+            <h2>Balance(LKR)</h2>
+            <div id="balance"></div>
+        </div>
+        <aside></aside>
+        <button id="confirm">Confirm</button>
+    </div>
+    <div class="table-details">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price(LKR)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>I001</td>
+                <td>Sandwich</td>
+                <td>4</td>
+                <td>500.00</td>
+            </tr>
+            <tr>
+                <td>I002</td>
+                <td>Hot Dog</td>
+                <td>4</td>
+                <td>3000.00</td>
+            </tr>
+            <tr>
+                <td>I003</td>
+                <td>Burger</td>
+                <td>2</td>
+                <td>700.00</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+
+<script src="asserts/jQuery/jquery-3.6.0.min.js"></script>
+</body>
+</html>
